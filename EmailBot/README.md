@@ -1,5 +1,5 @@
 # Email Bot
-The main code is in ``main.py``
+The code is in ``main.py``
 # Packages
 U need to install 2 packages
 1) SpeechRecognition
