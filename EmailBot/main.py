@@ -17,6 +17,7 @@ def get_info():
         with sr.Microphone() as source:
             print('listening...')
             voice = listener.listen(source)
+            print("processing...")
             info = listener.recognize_google(voice)
             print(info)
             return info.lower()
@@ -28,7 +29,7 @@ def send_email(receiver, subject, message):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     # Make sure to give app access in your Google account
-    server.login('Ur Email here', 'Ur password here')
+    server.login('Ur Email', 'Ur password')
     email = EmailMessage()
     email['From'] = 'Sender_Email'
     email['To'] = receiver
@@ -38,7 +39,7 @@ def send_email(receiver, subject, message):
 
 
 email_list = {
-    'Name of the person': 'There Enail id',
+    'Name of the person': 'There Email id',
     'ram': 'rns576@gmail.com',
     'saroj': 'sarojsingharnav@gmail.com',
     'pro': 'protanushsingh@gmail.com',
@@ -52,14 +53,24 @@ def get_email_info():
     try:
         receiver = email_list[name]
         print(receiver)
-    exept:
-        print('I cant find the person u wanna send ur email... Pls check email_list')
-        talk('I cant find the person u wanna send ur email... Pls check email_list')
+    except:
+        print('I cant find the person u wanna send ur email... Please check email_list')
+        talk('I cant find the person u wanna send ur email... Please check email_list')
+        quit()
     talk('What is the subject of your email?')
     subject = get_info()
     talk('Tell me the text in your email')
     message = get_info()
-    send_email(receiver, subject, message)
+    try:
+        send_email(receiver, subject, message)
+    except:
+        print("""
+There is an error in sending ur email... Pls check:
+https://github.com/ThisIsArnav/PythonTutorials/blob/main/EmailBot/README.md#exeptions
+Make sure ur email and password are valid...
+""")
+        talk("There is an error in sending ur email... Make sure ur email and password are valid...")
+        quit()
     talk('Hey lazy ass. Your email is sent')
     talk('Do you want to send more email?')
     send_more = get_info()
