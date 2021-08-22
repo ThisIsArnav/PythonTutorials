@@ -49,8 +49,12 @@ email_list = {
 def get_email_info():
     talk('To Whom you want to send email')
     name = get_info()
-    receiver = email_list[name]
-    print(receiver)
+    try:
+        receiver = email_list[name]
+        print(receiver)
+    exept:
+        print('I cant find the person u wanna send ur email... Pls check email_list')
+        talk('I cant find the person u wanna send ur email... Pls check email_list')
     talk('What is the subject of your email?')
     subject = get_info()
     talk('Tell me the text in your email')
