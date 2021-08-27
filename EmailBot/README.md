@@ -8,7 +8,7 @@ U need to install 2 packages
 By the command ``pip install <Package Name>`` in the termainal.
 
 # Exeptions
-...
+Coming Soon!!!
 
 # Finish
 Now u are dont with ur email bot...
