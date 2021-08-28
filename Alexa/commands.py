@@ -17,6 +17,7 @@ from Tools.email_bot import get_email_info as email_
 from Tools.Selfie.main import start as selfie
 from Tools.translator import run as trans
 from Tools.map import map_
+from Tools.whatsapp import send_msg
 
 # ###########################################################
 
@@ -34,6 +35,7 @@ def talk(text):
 def _take_command():
     try:
         with sr.Microphone() as source:
+            print("Tell 'help' to know what can i do")
             print_talk('listening...')
             voice = listener.listen(source)
             print("Processing")
@@ -64,6 +66,7 @@ def _commands():
         pywhatkit.search(q)
     elif 'lol' in command:
         talk('lol')
+        talk(pyjokes.get_joke())
     elif 'idiot' in command:
         print_talk('u are a idiot?')
     elif 'joke' in command:
@@ -101,10 +104,33 @@ def _commands():
     elif any(item.lower() == command.lower() for item in ["map", "go to", "navigate", "maps", "place"]):
         map_()
     elif any(item.lower() == command.lower() for item in ["whatsapp", "message", "send", "chat"]):
-        pywhatkit.sendwhatmsg("+919740710041", "Yo sent from whatsapp bot", 00, 5)
+        send_msg()
+    elif any(item.lower() == command.lower() for item in ["help", "what can you do"]):
+        print("""
+I Can Talk with you,
+I Can Play any YouTube Video or any music,
+I Can Tell U Time,
+I Can send Whatsapp messages,
+U can ask me doubts or your queries,
+U can Make a Google Search,
+I Can tell jokes,
+I can secure your house with my security camera,
+I can Hack,
+I Can send Emails,
+U Can Note something,
+U can ask me to define something,
+U can take selfie,
+U can translate anything,
+I can navigate u to any place
+        """)
     else:
         if command != "":
-            print_talk("Results for " + command)
-            search(command)
+            print_talk(f"I don't have an answer for '{command}', Can I search it in google?")
+            perms = _take_command()
+            if any(item.lower() == perms.lower() for item in ["yes", "ok", "yeah", "fine"]):
+                print_talk("Results for " + command)
+                search(command)
+            else:
+                print_talk("I don't no what to do now... Sorry")
         else:
             print_talk("Please say the command again")

@@ -7,8 +7,8 @@ def run_alexa():
 
 
 while True:
-    #try:
-    run_alexa()
-    '''except:
+    try:
+        run_alexa()
+    except:
         print_talk("Error")
-        break'''
+        break

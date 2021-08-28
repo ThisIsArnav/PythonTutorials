@@ -48,16 +48,29 @@ email_list = {
 def get_email_info(email, password):
     talk('To Whom you want to send email')
     name = get_info()
-    receiver = email_list[name]
-    print(receiver)
+    try:
+        receiver = email_list[name]
+        print(receiver)
+    except:
+        print('I cant find the person u wanna send ur email... Please check email_list')
+        talk('I cant find the person u wanna send ur email... Please check email_list')
+        quit()
     talk('What is the subject of your email?')
     subject = get_info()
     talk('Tell me the text in your email')
     message = get_info()
-    send_email(receiver, subject, message, email, password)
+    try:
+        send_email(receiver, subject, message, email, password)
+    except:
+        print("""
+    There is an error in sending ur email... Pls check:
+    https://github.com/ThisIsArnav/PythonTutorials/blob/main/EmailBot/README.md#exeptions
+    Make sure ur email and password are valid...
+    """)
+        talk("There is an error in sending ur email... Make sure ur email and password are valid...")
+        quit()
     talk('Hey lazy ass. Your email is sent')
     talk('Do you want to send more email?')
     send_more = get_info()
     if 'yes' in send_more:
         get_email_info(email, password)
-
